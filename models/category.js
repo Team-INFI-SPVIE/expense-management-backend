@@ -17,11 +17,15 @@ const Category = DB.define(
 
     userId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: "id",
-      },
     },
+
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: User,
+    //     key: "id",
+    //   },
+    // },
   },
   { paranoid: true }
 );

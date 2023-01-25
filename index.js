@@ -11,10 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import module routage
 const user_router = require("./routes/users");
+const product_router = require("./routes/products");
+const category_router = require("./routes/categories");
 
 //Routing
 app.get("/", (req, res) => res.send("Welcome..."));
 app.use("/users", user_router);
+app.use("/products", product_router);
+app.use("/categories", category_router);
 app.get("*", (req, res) => res.status(501).send("Error 501"));
 
 DB.authenticate()

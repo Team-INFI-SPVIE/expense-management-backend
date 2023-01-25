@@ -20,18 +20,24 @@ const Product = DB.define(
     },
     userId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: "id",
-      },
     },
     categoryId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Category,
-        key: "id",
-      },
     },
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: User,
+    //     key: "id",
+    //   },
+    // },
+    // categoryId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: Category,
+    //     key: "id",
+    //   },
+    // },
   },
   { paranoid: true }
 );

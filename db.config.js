@@ -8,8 +8,15 @@ let sequelize = new Sequelize(
     server: process.env.DB_SERVER,
     port: process.env.DB_PORT,
     dialect: "mssql",
+    logging: false,
   }
 );
+
+// Mise en place des relation
+
+// const db = {};
+// db.User = require("./models/user");
+// db.Product = require("./models/product");
 
 sequelize.sync((err) => {
   console.log("Database Sync errror", err);

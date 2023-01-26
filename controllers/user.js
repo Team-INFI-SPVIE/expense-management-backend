@@ -13,7 +13,6 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUser = async (req, res) => {
   let userId = parseInt(req.params.id);
-  console.log("azert", userId);
   if (!userId) {
     return res.json(400).json({ message: "Missing Parameter" });
   }

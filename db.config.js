@@ -12,14 +12,11 @@ let sequelize = new Sequelize(
   }
 );
 
-// Mise en place des relation
+const db = {};
 
-// const db = {};
-// db.User = require("./models/user");
-// db.Product = require("./models/product");
+db.sequelize = sequelize;
+db.User = require("./models/user")(sequelize);
 
-sequelize.sync((err) => {
-  console.log("Database Sync errror", err);
-});
+db.sequelize.sync({ alter: true });
 
-module.exports = sequelize;
+module.exports = db;

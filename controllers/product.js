@@ -21,7 +21,6 @@ exports.getProductById = async (req, res) => {
     let product = await Product.findOne({
       where: { id: productId },
       include: { model: User },
-      // include: { model: User, attributes: ["id", "email"] },
     });
 
     if (product === null) {

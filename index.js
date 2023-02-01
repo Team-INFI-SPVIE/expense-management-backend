@@ -26,20 +26,15 @@ const site_router = require("./routes/sites");
 const category_router = require("./routes/categories");
 
 // Routing
-
-app.get("/", (_, res) => res.send(`I'm online. All is OK !`));
+app.get("/", (_, res) => res.send(`Welcome...`));
 app.use("/roles", role_router);
-// app.use("/users", checkTokenMiddleware, user_router);
 app.use("/users", user_router);
 app.use("/categories", category_router);
 app.use("/auth", auth_router);
 app.use("/sites", site_router);
+app.use("/products", checkTokenMiddleware, product_router);
 
-app.use("/products", product_router);
-
-// app.use("/categories", category_router);
-
-app.get("*", (req, res) =>
+app.get("*", (_, res) =>
   res.status(501).send("What the hell are you doing !?!")
 );
 
@@ -49,7 +44,7 @@ DB.sequelize
   .then(() => {
     app.listen(process.env.SERVER_PORT, () => {
       console.log(
-        `This server is running on port ${process.env.SERVER_PORT}. Have fun !`
+        `This server is running on localhost:${process.env.SERVER_PORT}. Have fun !`
       );
     });
   })

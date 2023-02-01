@@ -1,7 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-/************************************/
-/*** Connexion à la base de données */
 let sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -40,6 +38,7 @@ db.Product.belongsTo(db.Category, { foreignKey: "categoryId" });
 db.User.belongsToMany(db.Site, { through: db.Site_user });
 db.Site.belongsToMany(db.User, { through: db.Site_user });
 
+// Rélation plusieur a plusieur User et Product
 db.User.hasMany(db.Product, { foreignKey: "userId", onDelete: "cascade" });
 db.Product.belongsTo(db.User, { foreignKey: "userId" });
 

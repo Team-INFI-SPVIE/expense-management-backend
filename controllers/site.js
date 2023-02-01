@@ -1,6 +1,5 @@
 const DB = require("../db.config");
 const Site = DB.Site;
-const User = DB.User;
 
 exports.getAllSites = (_, res) => {
   Site.findAll({ paranoid: false })
@@ -20,7 +19,6 @@ exports.getSiteById = async (req, res) => {
   try {
     let site = await Site.findOne({
       where: { id: siteId },
-      // include: { model: User },
     });
 
     if (site === null) {

@@ -1,19 +1,20 @@
 const { DataTypes } = require("sequelize");
-const DB = require("../db.config");
 
-const Site = DB.define(
-  "Site",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+module.exports = (sequelize) => {
+  const Site = sequelize.define(
+    "Site",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+      },
     },
-    libelle: {
-      type: DataTypes.STRING,
-    },
-  },
-  { paranoid: true }
-);
+    { timestamps: false }
+  );
 
-module.exports = Site;
+  return Site;
+};

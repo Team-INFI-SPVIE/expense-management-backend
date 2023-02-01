@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-
 const DB = require("../db.config");
 const User = DB.User;
 
@@ -33,11 +31,9 @@ exports.getUser = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, idRole } = req.body;
 
-  console.log("data: ", req.body);
-
-  if (!firstName || !lastName || !email || !password) {
+  if (!firstName || !lastName || !email || !password || !idRole) {
     return res.status(400).json({ message: "Missing Data" });
   }
 
@@ -48,13 +44,6 @@ exports.addUser = async (req, res) => {
         .status(409)
         .json({ message: `The user ${firstName} already exists !` });
     }
-
-    // Hashage du mot de passe utilisateur
-    // let hash = await bcrypt.hash(
-    //   password,
-    //   parseInt(process.env.BCRYPT_SALT_ROUND)
-    // );
-    // req.body.password = hash;
 
     let userc = await User.create(req.body);
 

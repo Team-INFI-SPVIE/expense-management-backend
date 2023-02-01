@@ -1,45 +1,38 @@
 const { DataTypes } = require("sequelize");
-const DB = require("../db.config");
 
-const User = require("../models/user");
-const Category = require("../models/category");
+module.exports = (sequelize) => {
+  const Product = sequelize.define(
+    "Product",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+      },
+      status: {
+        type: DataTypes.STRING,
+      },
+      price: {
+        type: DataTypes.FLOAT,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+      },
+      description: {
+        type: DataTypes.TEXT,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+      },
+      categoryId: {
+        type: DataTypes.INTEGER,
+      },
+    },
+    { timestamps: false }
+  );
 
-const Product = DB.define(
-  "Product",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-    },
-    status: {
-      type: DataTypes.STRING,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-    },
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: User,
-    //     key: "id",
-    //   },
-    // },
-    // categoryId: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: Category,
-    //     key: "id",
-    //   },
-    // },
-  },
-  { paranoid: true }
-);
-
-module.exports = Product;
+  return Product;
+};

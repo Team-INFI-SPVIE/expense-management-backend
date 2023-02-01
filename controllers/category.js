@@ -1,6 +1,5 @@
 const DB = require("../db.config");
 const Category = DB.Category;
-const User = DB.User;
 
 exports.getCategories = (_, res) => {
   Category.findAll({ paranoid: false })

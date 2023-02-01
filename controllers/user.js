@@ -1,5 +1,6 @@
 const DB = require("../db.config");
 const User = DB.User;
+const Role = DB.Role;
 
 exports.getAllUsers = (req, res) => {
   User.findAll()
@@ -18,7 +19,7 @@ exports.getUser = async (req, res) => {
   try {
     let user = await User.findOne({
       where: { id: userId },
-      // attributes: ["id", "email"],
+      include: { model: Role },
     });
     if (user === null) {
       return res.status(404).json({ message: "This user does not exist !" });

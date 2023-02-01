@@ -1,11 +1,7 @@
 const { DataTypes } = require("sequelize");
-const DB = require("../db.config");
 
-const User = require("../models/user");
-
-const Category = DB.define(
-  "Category",
-  {
+module.exports = (sequelize) => {
+  const Category = sequelize.define("Category", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -14,20 +10,13 @@ const Category = DB.define(
     name: {
       type: DataTypes.STRING,
     },
-
+    createdAt: {
+      type: DataTypes.DATE,
+    },
     userId: {
       type: DataTypes.INTEGER,
     },
+  });
 
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: User,
-    //     key: "id",
-    //   },
-    // },
-  },
-  { paranoid: true }
-);
-
-module.exports = Category;
+  return Category;
+};

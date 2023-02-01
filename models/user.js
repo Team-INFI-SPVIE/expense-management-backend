@@ -23,6 +23,9 @@ module.exports = (sequelize) => {
           isEmail: true,
         },
       },
+      roleId: {
+        type: DataTypes.INTEGER,
+      },
       password: {
         type: DataTypes.STRING(64),
         is: /^[0-9a-f]{64}$/i,

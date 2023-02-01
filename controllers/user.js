@@ -1,9 +1,8 @@
-const bcrypt = require("bcrypt");
-
 const DB = require("../db.config");
 const User = DB.User;
+const Role = DB.Role;
 
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = (_, res) => {
   User.findAll()
     .then((users) => res.json({ data: users }))
     .catch((err) =>
@@ -20,7 +19,7 @@ exports.getUser = async (req, res) => {
   try {
     let user = await User.findOne({
       where: { id: userId },
-      // attributes: ["id", "email"],
+      include: { model: Role },
     });
     if (user === null) {
       return res.status(404).json({ message: "This user does not exist !" });
@@ -33,11 +32,10 @@ exports.getUser = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, roleId } = req.body;
+  console.log(req.body);
 
-  console.log("data: ", req.body);
-
-  if (!firstName || !lastName || !email || !password) {
+  if (!firstName || !lastName || !email || !password || !roleId) {
     return res.status(400).json({ message: "Missing Data" });
   }
 
@@ -48,13 +46,6 @@ exports.addUser = async (req, res) => {
         .status(409)
         .json({ message: `The user ${firstName} already exists !` });
     }
-
-    // Hashage du mot de passe utilisateur
-    // let hash = await bcrypt.hash(
-    //   password,
-    //   parseInt(process.env.BCRYPT_SALT_ROUND)
-    // );
-    // req.body.password = hash;
 
     let userc = await User.create(req.body);
 
@@ -123,7 +114,7 @@ exports.deleteUser = (req, res) => {
     return res.status(400).json({ message: "Missing parameter" });
   }
 
-  User.destroy({ where: { id: userId }, force: true })
+  User.destroy({ where: { id: userId }, force: false })
     .then(() => res.status(204).json({}))
     .catch((err) =>
       res.status(500).json({ message: "Database Error", error: err })

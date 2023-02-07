@@ -2,12 +2,12 @@ const DB = require("../db.config");
 const User = DB.User;
 const Role = DB.Role;
 
-exports.getAllUsers = (_, res) => {
-  User.findAll()
-    .then((users) => res.json({ data: users }))
-    .catch((err) =>
-      res.status(500).json({ message: "Database Error", error: err })
-    );
+exports.getAllUsers = async (_, res) => {
+  let users = await User.findAll({
+    include: { model: Role },
+  });
+
+  return res.json({ data: users });
 };
 
 exports.getUser = async (req, res) => {

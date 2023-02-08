@@ -32,7 +32,7 @@ app.use("/users", user_router);
 app.use("/categories", category_router);
 app.use("/auth", auth_router);
 app.use("/sites", site_router);
-app.use("/products", checkTokenMiddleware, product_router);
+app.use("/products", product_router);
 
 app.get("*", (_, res) =>
   res.status(501).send("What the hell are you doing !?!")

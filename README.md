@@ -7,7 +7,7 @@
 We can install the master branch using the following commands:
 
 ```
-$ git clone https://github.com/Team-INFI-SPVIE/expense-management-backend.git
+$ git clone https://github.com/Amadoubenthe/expense-management-fe.git
 $ cd expense-management-backend
 $ npm install
 $ npm run dev

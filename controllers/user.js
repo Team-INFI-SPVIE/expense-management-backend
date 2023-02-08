@@ -32,10 +32,10 @@ exports.getUser = async (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  const { firstName, lastName, email, password, roleId } = req.body;
+  const { firstName, lastName, email, password, roleId, phone } = req.body;
   console.log(req.body);
 
-  if (!firstName || !lastName || !email || !password || !roleId) {
+  if (!firstName || !lastName || !email || !password || !roleId || !phone) {
     return res.status(400).json({ message: "Missing Data" });
   }
 
@@ -47,9 +47,9 @@ exports.addUser = async (req, res) => {
         .json({ message: `The user ${firstName} already exists !` });
     }
 
-    let userc = await User.create(req.body);
+    let userAdd = await User.create(req.body);
 
-    return res.json({ message: "User Created", data: userc });
+    return res.json({ message: "User Created", data: userAdd });
   } catch (err) {
     if (err.name == "SequelizeDatabaseError") {
       res.status(500).json({ message: "Database Error", error: err });
@@ -61,6 +61,7 @@ exports.addUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   let userId = parseInt(req.params.id);
 
+  console.log(req.body);
   if (!userId) {
     return res.status(400).json({ message: "Missing parameter" });
   }

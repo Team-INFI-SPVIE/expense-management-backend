@@ -6,7 +6,7 @@ let router = express.Router();
 router.get("/", userCtrl.getAllUsers);
 router.get("/:id", userCtrl.getUser);
 router.post("", userCtrl.addUser);
-router.patch("/:id", userCtrl.updateUser);
+router.put("/:id", userCtrl.updateUser);
 router.post("/untrash/:id", userCtrl.untrashUser);
 router.delete("/trash/:id", userCtrl.trashUser);
 router.delete("/:id", userCtrl.deleteUser);

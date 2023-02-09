@@ -18,11 +18,8 @@ exports.login = async (req, res) => {
         .json({ message: "This account does not exists !" });
     }
 
-    console.log("password", user.password);
-
     let test = await User.checkPassword(password, user.password);
 
-    console.log(test);
     if (!test) {
       return res.status(401).json({ message: "Wrong password" });
     }

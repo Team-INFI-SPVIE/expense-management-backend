@@ -44,30 +44,25 @@ app.get("*", (_, res) =>
   res.status(501).send("What the hell are you doing !?!")
 );
 
-async function generateDefaultData() {
+async function generateDefaultData(id) {
   // Generate default role
-  const adminRoleData = {
-    name: "Admin",
-    createdAt: new Date(),
-  };
-  const admin = await Role.create(adminRoleData);
   const cashierRoleData = {
     name: "Cashier",
     createdAt: new Date(),
   };
-  const cashier = await Role.create(cashierRoleData);
+  await Role.create(cashierRoleData);
 
   // Generate default user
-  // const data = {
-  //   firstName: "DIALLO",
-  //   lastName: "Amadou Benthe",
-  //   phone: "0584100000",
-  //   email: "amadouAdmin@test.com",
-  //   roleId: admin.id,
-  //   password: "password",
-  //   createdAt: new Date(),
-  // };
-  // let user = await User.create(data);
+  const data = {
+    firstName: "DIALLO",
+    lastName: "Amadou Benthe",
+    phone: "0584100000",
+    email: "amadouAdmin@test.com",
+    roleId: 1,
+    password: "password",
+    createdAt: new Date(),
+  };
+  await User.create(data);
 
   // Generate default category
   const categoryData = {
@@ -89,35 +84,24 @@ DB.sequelize
   .then(() => console.log("Database connection OK"))
   .then(() => {
     app.listen(process.env.SERVER_PORT, async () => {
-      console.log("je suis laccccc");
-      // let users = await User.findAll();
-      const data = {
-        firstName: "DIALLO",
-        lastName: "Amadou Benthe",
-        phone: "0584100000",
-        email: "amadouAdmin@test.com",
-        roleId: 1,
-        password: "password",
-        createdAt: new Date(),
-      };
-      let user = await User.findOrCreate({
-        where: { id: 1 },
-        defaults: data,
-      });
-
-      // let users = await User.;
-      console.log(user.length);
-
-      if (user.length === 0) {
-        generateDefaultData();
-        console.log("Default data generated successfully...");
-      }
-
-      console.log(user.length);
-
       console.log(
-        `This server is running on localhost:${process.env.SERVER_PORT}. Have fun !`
+        `This server is running on localhost:${process.env.SERVER_PORT}.`
       );
     });
+  })
+  .then(async () => {
+    const adminRoleData = {
+      name: "Admin",
+      createdAt: new Date(),
+    };
+
+    const [row, created] = await Role.findOrCreate({
+      where: { id: 1 },
+      defaults: adminRoleData,
+    });
+
+    if (created === true) {
+      generateDefaultData(row["dataValues"]["id"]);
+    }
   })
   .catch((err) => console.log("Database Error", err));

@@ -22,6 +22,7 @@ db.Category = require("./models/category")(sequelize);
 db.Product = require("./models/product")(sequelize);
 db.Site = require("./models/site")(sequelize);
 db.Site_user = require("./models/site_user")(sequelize);
+db.Command = require("./models/command")(sequelize);
 
 // Rélation Role et User
 db.Role.hasMany(db.User, { foreignKey: "roleId", onDelete: "cascade" });
@@ -41,6 +42,21 @@ db.Site.belongsToMany(db.User, { through: db.Site_user });
 // Rélation plusieur a plusieur User et Product
 db.User.hasMany(db.Product, { foreignKey: "userId", onDelete: "cascade" });
 db.Product.belongsTo(db.User, { foreignKey: "userId" });
+
+// Relation command user
+db.User.hasMany(db.Command, { foreignKey: "userId", onDelete: "cascade" });
+db.Command.belongsTo(db.User, { foreignKey: "userId" });
+
+// Relation command site
+db.Site.hasMany(db.Command, { foreignKey: "siteId", onDelete: "cascade" });
+db.Command.belongsTo(db.Site, { foreignKey: "siteId" });
+
+// Relation command product
+db.Product.hasMany(db.Product, {
+  foreignKey: "productId",
+  onDelete: "cascade",
+});
+db.Command.belongsTo(db.Product, { foreignKey: "productId" });
 
 db.sequelize.sync({ alter: true });
 

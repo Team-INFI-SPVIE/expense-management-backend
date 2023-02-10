@@ -14,7 +14,7 @@ $ npm run dev
 ```
 
 This project is for backand-end development,
-The frontend is accessible in this url:
+The frontend is accessible in this url: https://github.com/Amadoubenthe/expense-management-fe
 
 ```
 $ git clone https://github.com/Amadoubenthe/expense-management-fe

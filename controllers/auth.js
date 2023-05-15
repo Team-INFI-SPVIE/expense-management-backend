@@ -24,18 +24,20 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.prenom,
-        email: user.email,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_DURING }
-    );
+    // const token = jwt.sign(
+    //   {
+    //     id: user.id,
+    //     firstName: user.firstName,
+    //     lastName: user.prenom,
+    //     email: user.email,
+    //   },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: process.env.JWT_DURING }
+    // );
 
-    return res.json({ access_token: token });
+    // return res.json({ access_token: token });
+
+    return res.json(user);
   } catch (err) {
     if (err.name == "SequelizeDatabaseError") {
       res.status(500).json({ message: "Database Error", error: err });

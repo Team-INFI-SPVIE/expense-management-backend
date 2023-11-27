@@ -1,5 +1,7 @@
 # expense-management-backend
 
+Cette application est codée en Node.js et utilise SQL Server comme base de données.
+
 ## How To install this repository
 
 ---

@@ -47,9 +47,9 @@ exports.addUser = async (req, res) => {
         .json({ message: `The user ${firstName} already exists !` });
     }
 
-    let userAdd = await User.create(req.body);
+    await User.create(req.body);
 
-    return res.json({ message: "User Created", data: userAdd });
+    return res.json({ message: "User Created" });
   } catch (err) {
     if (err.name == "SequelizeDatabaseError") {
       res.status(500).json({ message: "Database Error", error: err });
